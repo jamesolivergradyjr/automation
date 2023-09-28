@@ -1,0 +1,16 @@
+def get_currency(in_currency, out_currency):
+    url = f"https://www.x-rates.com/calculator/?from={in_currency}&to={out_currency}&amount=1"
+    #print(url) #successful testing construction of the url
+    #page-source code: right click in the page and select show/view page source
+    content = requests.get(url).text #this will give you the contents of the page using bs4
+    #this is "making a soup" calling the entire library to a variable
+    #specifying the parsing type: 'html.parser'
+    #specifying the type of element: s'pan'
+    #specify the span class:ccOutputRslt
+    soup = BeautifulSoup(content, 'html.parser')
+    #for TESTING PURPOSES ONLY we will put the soup.find element into a variable|testing via print statement
+    cash=soup.find('span', class_='ccOutputRslt').get_text()
+    print(cash) #which should print out element properties from web page-see below
+    #0.012012 USD
+
+get_currency('INR', 'USD')
